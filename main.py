@@ -14,7 +14,7 @@ import pandas as pd
 # Se carga el archivo de la clase Cubo
 import sys
 sys.path.append('..')
-#from Pacman import Pacman
+from Pacman import Pacman
 #from Ghost import Ghost
 
 screen_width = 800
@@ -90,7 +90,7 @@ path = []
 grid = []
 
 #pacman
-#pc = Pacman(matrix, MC, XPxToMC, YPxToMC)
+pc = Pacman(matrix, MC, XPxToMC, YPxToMC)
 #fantasmas
 #ghosts = []
 
@@ -152,7 +152,7 @@ def Init():
     #textures[5]: fantasma4
     Texturas(img_ghost4)
     #se pasan las texturas a los objetos
-    #pc.loadTextures(textures,1)
+    pc.loadTextures(textures,1)
     #ghosts[0].loadTextures(textures,2)
     #ghosts[1].loadTextures(textures,3)
     #ghosts[2].loadTextures(textures,4)
@@ -180,7 +180,7 @@ def display():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     Axis()
     PlanoTexturizado()
-    #pc.draw()
+    pc.draw()
     #for g in ghosts:
     #    g.draw()
     #    g.update2(pc.position)
@@ -195,7 +195,16 @@ while not done:
                 done = True
     
     keys = pygame.key.get_pressed()
-
+    dx = dy = 0
+    if keys[K_LEFT]:
+        dx = -1
+    elif keys[K_RIGHT]:
+        dx = 1
+    elif keys[K_UP]:
+        dy = -1
+    elif keys[K_DOWN]:
+        dy = 1
+    pc.update((dx, dy))
 
     display()
     pygame.display.flip()
